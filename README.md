@@ -32,11 +32,11 @@
 
 | Property | Your answer |
 |---|---|
-| Data structure name | python dict |
-| What the keys represent | All the possible destination nodes |
+| Data structure name | Nested python dict |
+| What the keys represent | Outer keys are source nodes, inner are destination |
 | What the values represent | The shortest distance from current source node to corresponding destination node |
 | Lookup time complexity | O(1) |
-| Why O(1) lookup is possible | Each destination node has only one shortest distance associated with it |
+| Why O(1) lookup is possible | Each destination node has only one shortest distance associated with it so hashing should be O(1) for lookup |
 
 ### Part 2c: Precomputation Complexity
 
