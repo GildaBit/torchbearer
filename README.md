@@ -23,33 +23,30 @@
 
 ### Part 2a: Source Selection
 
-> List the source node types as a bullet list. For each, one-line reason.
-
 | Source Node Type | Why it is a source |
 |---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| Entrance node S | The route starts at S, thus the planner needs cheapest distances from entrance to each relic.|
+| Relic chambers in M | After collecting a relic from a chamber m, the planner may need to travel to other relics or the exit. |
 
 ### Part 2b: Distance Storage
 
-> Fill in the table. No prose required.
-
 | Property | Your answer |
 |---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Data structure name | python dict |
+| What the keys represent | All the possible destination nodes |
+| What the values represent | The shortest distance from current source node to corresponding destination node |
+| Lookup time complexity | O(1) |
+| Why O(1) lookup is possible | Each destination node has only one shortest distance associated with it |
 
 ### Part 2c: Precomputation Complexity
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** k + 1
+- **Cost per run:** O(m log n)
+- **Total complexity:** O((k+1)m log n)
+- **Justification (one line):** For each dijkstra run from a source node to all destination nodes, the cost is m*log(n).
+If there are k relic chambers plus the single end node, then dijkstra will run k + 1 times. Thus O((k+1)m log n).
 
 ---
 
