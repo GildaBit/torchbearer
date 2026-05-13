@@ -1,29 +1,21 @@
 # The Torchbearer
 
-**Student Name:** ___________________________
-**Student ID:** ___________________________
+**Student Name:** Gilad Bitton
+**Student ID:** 130621085
 **Course:** CS 460 – Algorithms | Spring 2026
-
-> This README is your project documentation. Write it the way a developer would document
-> their design decisions , bullet points, brief justifications, and concrete examples where
-> required. You are not writing an essay. You are explaining what you built and why you built
-> it that way. Delete all blockquotes like this one before submitting.
 
 ---
 
 ## Part 1: Problem Analysis
 
-> Document why this problem is not just a shortest-path problem. Three bullet points, one
-> per question. Each bullet should be 1-2 sentences max.
-
 - **Why a single shortest-path run from S is not enough:**
-  _Your answer here._
+  The shortest path from S only gives the cheapest distances from the entrance to each node, but does not take ordering into account. Thus, the torchbearer won't know which relic to visit first, second, and so on.
 
 - **What decision remains after all inter-location costs are known:**
-  _Your answer here._
+  The decision that remains is the order in which the torchbearer will take the paths to all the relics before exiting. Different orders can have different fuel costs.
 
 - **Why this requires a search over orders (one sentence):**
-  _Your answer here._
+  This requires a search over orders because this task requires making a decision between different relic visit sequences by lowest fuel cost.
 
 ---
 

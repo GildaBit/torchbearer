@@ -2,8 +2,8 @@
 CS 460 – Algorithms: Final Programming Assignment
 The Torchbearer
 
-Student Name: ___________________________
-Student ID:   ___________________________
+Student Name: Gilad Bitton
+Student ID:   130621085
 
 INSTRUCTIONS
 ------------
@@ -31,10 +31,22 @@ def explain_problem():
     str
         Your Part 1 README answers, written as a string.
         Must match what you wrote in README Part 1.
-
-    TODO
     """
-    return "TODO"
+
+    return """
+## Part 1: Problem Analysis
+
+- **Why a single shortest-path run from S is not enough:**
+The shortest path from S only gives the cheapest distances from the entrance to each node, but does not take ordering into account. 
+Thus, the torchbearer won't know which relic to visit first, second, and so on.
+
+- **What decision remains after all inter-location costs are known:**
+The decision that remains is the order in which the torchbearer will take the paths to all the relics before exiting. 
+Different orders can have different fuel costs.
+
+- **Why this requires a search over orders (one sentence):**
+This requires a search over orders because this task requires making a decision between different relic visit sequences by lowest fuel cost.
+    """
 
 
 # =============================================================================
@@ -280,4 +292,5 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    _run_tests()
+    print(explain_problem())
+    #_run_tests()
