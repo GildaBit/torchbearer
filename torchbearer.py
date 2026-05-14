@@ -188,9 +188,30 @@ def explain_search():
         Your Part 4 README answers, written as a string.
         Must match what you wrote in README Part 4.
 
-    TODO
+    
     """
-    return "TODO"
+    return """
+## Part 4: Search Design
+
+### Why Greedy Fails
+
+- **The failure mode:** The local shortest distance to relic may force a more expensive path later.
+- **Counter-example setup:** 
+
+    | From \ To | B   | C   | D   | T   |
+    |-----------|-----|-----|-----|-----|
+    | S         | 1   | 2   | 2   | --  |
+    | B         | --  | 100 | 1   | 1   |
+    | C         | 1   | --  | 100 | 100 |
+    | D         | 1   | 1   | --  | 100 |
+- **What greedy picks:** Route: S -> B -> D -> C -> T = 103 fuel cost
+- **What optimal picks:** Route: S -> D -> C -> B -> T = 5 fuel cost
+- **Why greedy loses:** Greedy chooses B since it's best immediate choice at start, but it forces it onto a very costly edge from C to T.
+
+### What the Algorithm Must Explore
+
+The algorithm must explore the order in which these relics are visited, we want to have the shortest distance possible from start to finish.    
+    """
 
 
 # =============================================================================
@@ -215,9 +236,14 @@ def find_optimal_route(dist_table, spawn, relics, exit_node):
         (minimum_fuel_cost, ordered_relic_list)
         Returns (float('inf'), []) if no valid route exists.
 
-    TODO
     """
-    pass
+    relics_remaining = set(relics)
+    relics_visited_order = []
+    cost_so_far = 0
+    best = [float('inf'), []]  # Mutable container for best solution found so far
+    _explore(dist_table, spawn, relics_remaining, relics_visited_order, cost_so_far, exit_node, best)
+    return best[0], best[1]
+
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
@@ -242,14 +268,40 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     None
         Updates best in place.
 
-    TODO
     Implement: base case, pruning, recursive case, backtracking.
 
     REQUIRED: Add a 1-2 sentence comment near your pruning condition
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
     """
-    pass
+    # Base case: if no relics remain, check cost to exit and update best if needed
+    if not relics_remaining:
+        dist_to_exit = dist_table[current_loc][exit_node]
+        if dist_to_exit == float('inf'):
+            return  # No path to exit, so this route is invalid
+        total_cost = cost_so_far + dist_to_exit
+        if total_cost < best[0]:
+            best[0] = total_cost
+            best[1] = relics_visited_order.copy()
+        return
+    # Recursive case: try visiting each remaining relic
+    for relic in list(relics_remaining):
+        dist_to_relic = dist_table[current_loc][relic]
+        if dist_to_relic == float('inf'):
+            continue  # No path to this relic, skip it
+        new_cost = cost_so_far + dist_to_relic
+        # Pruning: if the cost so far plus the minimum possible cost to visit remaining relics and exit exceeds best, skip
+        # This is safe because all edge costs are nonnegative, so any additional paths will only add to the cost.
+        if new_cost >= best[0]:
+            continue
+        # Choose this relic and explore further
+        relics_remaining.remove(relic)
+        relics_visited_order.append(relic)
+        _explore(dist_table, relic, relics_remaining, relics_visited_order, new_cost, exit_node, best)
+        # Backtrack
+        relics_visited_order.pop()
+        relics_remaining.add(relic)
+    
 
 
 # =============================================================================

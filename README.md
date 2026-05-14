@@ -101,8 +101,6 @@ Since we need to find the shortest path that connects the source to all relics a
 
 ### What the Algorithm Must Explore
 
-> One bullet. Must use the word "order."
-
 The algorithm must explore the order in which these relics are visited, we want to have the shortest distance possible from start to finish.
 
 ---
@@ -116,7 +114,7 @@ The algorithm must explore the order in which these relics are visited, we want 
 
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | | | |
+| Current location | current_loc | node | |
 | Relics already collected | | | |
 | Fuel cost so far | | | |
 
