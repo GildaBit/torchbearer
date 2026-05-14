@@ -142,9 +142,38 @@ def dijkstra_invariant_check():
         Your Part 3 README answers, written as a string.
         Must match what you wrote in README Part 3.
 
-    TODO
     """
-    return "TODO"
+    return """
+## Part 3: Algorithm Correctness
+
+### Part 3a: What the Invariant Means
+
+- **For nodes already finalized (in S):**
+  Since the nodes have been finalized, we can assume that the path cost from x to any v in S is the shortest possible path cost.
+
+- **For nodes not yet finalized (not in S):**
+  Since the nodes have not yet been finalized, that may mean that there could be a shorter path from x to any v not yet in S that has just not been found yet.
+
+### Part 3b: Why Each Phase Holds
+
+- **Initialization : why the invariant holds before iteration 1:**
+  - S = {}
+  - Since the algorithm has not yet started, S is empty, so the finalized part of the invariant is true. 
+  - The source starts with dist[x] = 0, and every other node starts with infinity until a path is discovered, so the not yet finalized part is true.
+
+- **Maintenance : why finalizing the min-dist node is always correct:**
+  - S = {(x, 0), (v_1, dist[v_1]), ...} for all v that have been finalized
+  - Since all edge weights are nonnegative, we can safely add unfinalized node with lowest current distance since later nodes will only add distance.
+
+- **Termination : what the invariant guarantees when the algorithm ends:**
+  - S = {(x, 0), (v_n, dist[v_n])} for all v destination nodes.
+  - Since the algorithm has finished, all destination nodes are finalized with minimum distance. Thus the invariant holds.
+
+### Part 3c: Why This Matters for the Route Planner
+
+Correct shortest route distances matter because the algorithm uses them when comparing relic visit orders. 
+Since we need to find the shortest path that connects the source to all relics and the end.
+    """
 
 
 # =============================================================================
