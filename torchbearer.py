@@ -323,9 +323,9 @@ def solve(graph, spawn, relics, exit_node):
         (minimum_fuel_cost, ordered_relic_list)
         Returns (float('inf'), []) if no valid route exists.
 
-    TODO
     """
-    pass
+    dist_table = precompute_distances(graph, spawn, relics, exit_node)
+    return find_optimal_route(dist_table, spawn, relics, exit_node)
 
 
 # =============================================================================
@@ -393,5 +393,4 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    print(explain_problem())
-    #_run_tests()
+    _run_tests()
