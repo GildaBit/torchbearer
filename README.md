@@ -109,33 +109,26 @@ The algorithm must explore the order in which these relics are visited, we want 
 
 ### Part 5a: State Representation
 
-> Document the three components of your search state as a table.
-> Variable names here must match exactly what you use in torchbearer.py.
-
 | Component | Variable name in code | Data type | Description |
 |---|---|---|---|
-| Current location | current_loc | node | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Current location | current_loc | node | The node where the current recursive search branch is located. |
+| Relics already collected | relics_visited_order | list[node] | The relics collected so far and stored in a list in order. |
+| Fuel cost so far | cost_so_far | int/float | The cost of the fuel of the relics already collected. |
 
 ### Part 5b: Data Structure for Visited Relics
 
-> Fill in the table.
-
 | Property | Your answer |
 |---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Data structure chosen | Set for relics_remaining and list for relics_visited_order |
+| Operation: check if relic already collected | Time complexity: O(1) |
+| Operation: mark a relic as collected | Time complexity: O(1) |
+| Operation: unmark a relic (backtrack) | Time complexity: O(1) |
+| Why this structure fits | A set supports fast adding and removing, while the list maintains order for the final sequence. |
 
 ### Part 5c: Worst-Case Search Space
 
-> Two bullets.
-
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** k!
+- **Why:** With k number of relics, there are k! permutations of the relic order.
 
 ---
 
@@ -143,30 +136,23 @@ The algorithm must explore the order in which these relics are visited, we want 
 
 ### Part 6a: Best-So-Far Tracking
 
-> Three bullets.
-
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** the best complete route found so far and its corresponding total distance.
+- **When it is used:** It is used during recursion when deciding whether to explore a branch further.
+- **What it allows the algorithm to skip:** It allows the algorithm to skip any branch we already know is unoptimal without going through it.
 
 ### Part 6b: Lower Bound Estimation
 
-> Three bullets.
-
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** It knows the current location, remaining relics, relics already visited, fuel spent, and precomputed shortest path distances between every source and destination node.
+- **What the lower bound accounts for:** The fuel already spent plus the shortest path cost to the next candidate relic.
+- **Why it never overestimates:** Since it uses shortest path distances and leaves out future required costs, the final completed route has to cost at least as much.
 
 ### Part 6c: Pruning Correctness
 
-> One to two bullets. Explain why pruning is safe.
-
-- _Your answer here._
+- A branch is pruned only when its current lower bound cost is less than the current best found path.
+- Since all corridor costs are nonnegative, continuing down a branch that has higher cost than current best will be a waste of time.
 
 ---
 
 ## References
 
-> Bullet list. If none beyond lecture notes, write that.
-
-- _Your references here._
+- none beyond lectures and notes taken from them.
