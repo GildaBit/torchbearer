@@ -86,20 +86,24 @@ Since we need to find the shortest path that connects the source to all relics a
 
 ### Why Greedy Fails
 
-> State the failure mode. Then give a concrete counter-example using specific node names
-> or costs (you may use the illustration example from the spec). Three to five bullets.
+- **The failure mode:** The local shortest distance to relic may force a more expensive path later.
+- **Counter-example setup:** 
 
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+    | From \ To | B   | C   | D   | T   |
+    |-----------|-----|-----|-----|-----|
+    | S         | 1   | 2   | 2   | --  |
+    | B         | --  | 100 | 1   | 1   |
+    | C         | 1   | --  | 100 | 100 |
+    | D         | 1   | 1   | --  | 100 |
+- **What greedy picks:** Route: S -> B -> D -> C -> T = 103 fuel cost
+- **What optimal picks:** Route: S -> D -> C -> B -> T = 5 fuel cost
+- **Why greedy loses:** Greedy chooses B since it's best immediate choice at start, but it forces it onto a very costly edge from C to T.
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+The algorithm must explore the order in which these relics are visited, we want to have the shortest distance possible from start to finish.
 
 ---
 
